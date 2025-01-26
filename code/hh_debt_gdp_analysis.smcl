@@ -1,0 +1,315 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\z99ka\OneDrive\Desktop\STATA\Output\hh_debt_gdp_analysis.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}26 Jan 2025, 20:17:21
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. global inputs "C:\Users\z99ka\OneDrive\Desktop\STATA\Input"
+{txt}
+{com}. global outputs "C:\Users\z99ka\OneDrive\Desktop\STATA\Output"
+{txt}
+{com}. 
+. import excel "C:\Users\z99ka\OneDrive\Desktop\STATA\Data\hh_debt_gdp_us.xlsx" , sheet ("Quarterly") firstrow
+{res}{txt}
+{com}. br
+{txt}
+{com}. d 
+
+{txt}Contains data
+  obs:{res}            77                          
+{txt} vars:{res}             2                          
+{txt} size:{res}           770                          
+{txt}{hline}
+              storage   display    value
+variable name   type    format     label      variable label
+{hline}
+{p 0 48}{res}{bind:date           }{txt}{bind: int     }{bind:{txt}%td       }{space 1}{bind:         }{bind:  }{res}{res}date{p_end}
+{p 0 48}{bind:debt_gdp_hh    }{txt}{bind: double  }{bind:{txt}%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}debt_gdp_hh{p_end}
+{txt}{hline}
+Sorted by: 
+{res}     Note: Dataset has changed since last saved.
+{txt}
+{com}. codebook date debt_gdp_hh
+
+{txt}{hline}
+{res}date{right:date}
+{txt}{hline}
+
+{col 19}type:  numeric daily date ({res}int{txt})
+
+{col 18}range:  [{res}16437{txt},{res}23376{txt}]{col 55}units:  {res}1
+{col 8}{txt}or equivalently:  [{res}01jan2005{txt},{res}01jan2024{txt}]{col 55}units:  {res}days
+{col 10}{txt}unique values:  {res}77{col 51}{txt}missing .:  {res}0{txt}/{res}77
+
+{txt}{col 19}mean:{res}{col 26} 19905.7{txt} = {res}01jul2014{txt} (+ 17 hours)
+{col 15}std. dev:{res}{col 26}  2042.8
+
+{txt}{col 12}percentiles:{col 32}10%{col 42}25%{col 52}50%{col 62}75%{col 72}90%
+{res}{col 27}   17075{col 37}   18171{col 47}   19905{col 57}   21640{col 67}   22736
+{col 26}01oct2006{col 36}01oct2009{col 46}01jul2014{col 56}01apr2019{col 66}01apr2022
+
+{txt}{hline}
+{res}debt_gdp_hh{right:debt_gdp_hh}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}double{txt})
+
+{col 18}range:  [{res}71.522884{txt},{res}100.53958{txt}]{col 55}units:  {res}1.000e-07
+{col 10}{txt}unique values:  {res}77{col 51}{txt}missing .:  {res}0{txt}/{res}77
+
+{txt}{col 19}mean:{res}{col 26} 84.5057
+{txt}{col 15}std. dev:{res}{col 26} 8.94024
+
+{txt}{col 12}percentiles:{col 32}10%{col 42}25%{col 52}50%{col 62}75%{col 72}90%
+{res}{col 27}  75.005{col 37} 77.2506{col 47} 80.6414{col 57} 93.7204{col 67} 99.1814
+{txt}
+{com}. save "$outputs\hh_debt_gdp_us.dta", replace
+{txt}file C:\Users\z99ka\OneDrive\Desktop\STATA\Output\hh_debt_gdp_us.dta saved
+
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. gen year = year(date) // Extract the year from the date
+{txt}
+{com}. collapse (mean) debt_gdp_hh, by(year) //calculate the average debt to gdp by year
+{txt}
+{com}. br
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. twoway line debt_gdp_hh year, ///
+>     title("Household Debt to GDP Ratio Over the Years") ///
+>     ytitle("Debt to GDP (%)") xtitle("Year") ///
+>     legend(off) graphregion(color(white))
+{res}{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. summarize debt_gdp_hh
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 1}debt_gdp_hh {c |}{res}         20    84.01887    9.200772   71.52288   99.28725
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. gen yearly_change = debt_gdp_hh[_n] - debt_gdp_hh[_n-1] if year[_n] != year[_n-1]
+{txt}(1 missing value generated)
+
+{com}. summarize yearly_change
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+yearly_cha~e {c |}{res}         19   -1.009867    2.574247   -5.15239    4.67536
+{txt}
+{com}. br
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. list year debt_gdp_hh yearly_change if yearly_change == r(max) // Maximum change
+{txt}
+     {c TLC}{hline 6}{c -}{hline 11}{c -}{hline 10}{c TRC}
+     {c |} {res}year   debt_gd~h   yearly~e {txt}{c |}
+     {c LT}{hline 6}{c -}{hline 11}{c -}{hline 10}{c RT}
+  2. {c |} {res}2006   95.385714    4.67536 {txt}{c |}
+     {c BLC}{hline 6}{c -}{hline 11}{c -}{hline 10}{c BRC}
+
+{com}. list year debt_gdp_hh yearly_change if yearly_change == r(min) // Minimum change
+{txt}
+     {c TLC}{hline 6}{c -}{hline 10}{c -}{hline 10}{c TRC}
+     {c |} {res}year   debt_g~h   yearly~e {txt}{c |}
+     {c LT}{hline 6}{c -}{hline 10}{c -}{hline 10}{c RT}
+  6. {c |} {res}2010   94.13486   -5.15239 {txt}{c |}
+     {c BLC}{hline 6}{c -}{hline 10}{c -}{hline 10}{c BRC}
+
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. twoway (bar yearly_change year), ///
+>     title("Yearly Change in Household Debt to GDP Ratio") ///
+>     ytitle("Change in Debt to GDP (%)") xtitle("Year")
+{res}{txt}
+{com}. 
+. save "$outputs\hh_debt_gdp_us_trend.dta", replace
+{txt}file C:\Users\z99ka\OneDrive\Desktop\STATA\Output\hh_debt_gdp_us_trend.dta saved
+
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. use "$outputs\hh_debt_gdp_us.dta",clear 
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. gen quarter = quarter(date)
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. graph box debt_gdp_hh, over(quarter, label(angle(45))) ///
+>     title("Seasonality in Household Debt to GDP Ratio") ytitle("Debt to GDP (%)")
+{res}{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. twoway line debt_gdp_hh date, title("Quarterly Household Debt to GDP Ratio") ///
+>     ytitle("Debt to GDP (%)") xtitle("Date") legend(off)
+{res}{txt}
+{com}. 
+. save "$outputs\hh_debt_gdp_us_seasonality.dta", replace
+{txt}file C:\Users\z99ka\OneDrive\Desktop\STATA\Output\hh_debt_gdp_us_seasonality.dta saved
+
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. use "$outputs\hh_debt_gdp_us.dta",clear
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. gen year = year(date)
+{txt}
+{com}. gen crisis_2008 = (year >= 2007 & year <= 2009) // Financial crisis
+{txt}
+{com}. gen covid_2020 = (year == 2020)                 // COVID-19 pandemic
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. collapse (mean) debt_gdp_hh, by(crisis_2008)
+{txt}
+{com}. list crisis_2008 debt_gdp_hh
+{txt}
+     {c TLC}{hline 10}{c -}{hline 11}{c TRC}
+     {c |} {res}cri~2008   debt_gd~h {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 11}{c RT}
+  1. {c |} {res}       0   81.857639 {txt}{c |}
+  2. {c |} {res}       1   98.849557 {txt}{c |}
+     {c BLC}{hline 10}{c -}{hline 11}{c BRC}
+
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. use "$outputs\hh_debt_gdp_us.dta",clear
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. gen year = year(date)
+{txt}
+{com}. gen crisis_2008 = (year >= 2007 & year <= 2009) // Financial crisis
+{txt}
+{com}. gen covid_2020 = (year == 2020)                 // COVID-19 pandemic
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. collapse (mean) debt_gdp_hh, by(covid_2020)
+{txt}
+{com}. list covid_2020 debt_gdp_hh
+{txt}
+     {c TLC}{hline 10}{c -}{hline 11}{c TRC}
+     {c |} {res}cov~2020   debt_gd~h {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 11}{c RT}
+  1. {c |} {res}       0   84.799683 {txt}{c |}
+  2. {c |} {res}       1   79.141092 {txt}{c |}
+     {c BLC}{hline 10}{c -}{hline 11}{c BRC}
+
+{com}. br
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. use "$outputs\hh_debt_gdp_us.dta", clear
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. gen quarterly_change = debt_gdp_hh - debt_gdp_hh[_n-1]
+{txt}(1 missing value generated)
+
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. summarize quarterly_change if _n > 1
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+quarterly_~e {c |}{res}         76   -.2012376    2.111032  -7.034619   3.068969
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{txt}
+{com}. list date debt_gdp_hh quarterly_change if quarterly_change == r(max)
+{txt}
+     {c TLC}{hline 11}{c -}{hline 11}{c -}{hline 10}{c TRC}
+     {c |} {res}     date   debt_gd~h   quarte~e {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 11}{c -}{hline 10}{c RT}
+ 66. {c |} {res}01apr2021   76.726323   3.068969 {txt}{c |}
+     {c BLC}{hline 11}{c -}{hline 11}{c -}{hline 10}{c BRC}
+
+{com}. list date debt_gdp_hh quarterly_change if quarterly_change == r(min)
+{txt}
+     {c TLC}{hline 11}{c -}{hline 11}{c -}{hline 11}{c TRC}
+     {c |} {res}     date   debt_gd~h   quarter~e {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 11}{c -}{hline 11}{c RT}
+ 65. {c |} {res}01jan2021   73.657354   -7.034619 {txt}{c |}
+     {c BLC}{hline 11}{c -}{hline 11}{c -}{hline 11}{c BRC}
+
+{com}. 
+{txt}end of do-file
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\z99ka\OneDrive\Desktop\STATA\Output\hh_debt_gdp_analysis.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}26 Jan 2025, 20:19:46
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
