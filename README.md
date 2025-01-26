@@ -27,3 +27,5 @@ The data for this project comes from publicly available datasets on **Household 
 - **Rate of Change**: Compute the rate of change in the ratio between quarters and identify the periods of highest and lowest change.
 
 ## How to Use
+
+- *Download the do file from the code folder, and then run it on your Stata. Stata version 14.1 was used for this analysis. Make sure to change the path to your input and output folders. 
