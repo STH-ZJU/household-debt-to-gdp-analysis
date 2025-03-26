@@ -1,18 +1,18 @@
 {smcl}
 {com}{sf}{ul off}{txt}{.-}
       name:  {res}<unnamed>
-       {txt}log:  {res}C:\Users\z99ka\OneDrive\Desktop\STATA\Output\hh_debt_gdp_analysis.smcl
+       {txt}log:  {res}C:\Users\sth\OneDrive\Desktop\STATA\Output\hh_debt_gdp_analysis.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res}26 Jan 2025, 20:17:21
+ {txt}opened on:  {res}26 Mar 2025, 20:17:21
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
-{com}. global inputs "C:\Users\z99ka\OneDrive\Desktop\STATA\Input"
+{com}. global inputs "C:\Users\sth\OneDrive\Desktop\STATA\Input"
 {txt}
-{com}. global outputs "C:\Users\z99ka\OneDrive\Desktop\STATA\Output"
+{com}. global outputs "C:\Users\sth\OneDrive\Desktop\STATA\Output"
 {txt}
 {com}. 
-. import excel "C:\Users\z99ka\OneDrive\Desktop\STATA\Data\hh_debt_gdp_us.xlsx" , sheet ("Quarterly") firstrow
+. import excel "C:\Users\sth\OneDrive\Desktop\STATA\Data\hh_debt_gdp_us.xlsx" , sheet ("Quarterly") firstrow
 {res}{txt}
 {com}. br
 {txt}
@@ -67,12 +67,12 @@ Sorted by:
 {res}{col 27}  75.005{col 37} 77.2506{col 47} 80.6414{col 57} 93.7204{col 67} 99.1814
 {txt}
 {com}. save "$outputs\hh_debt_gdp_us.dta", replace
-{txt}file C:\Users\z99ka\OneDrive\Desktop\STATA\Output\hh_debt_gdp_us.dta saved
+{txt}file C:\Users\sth\OneDrive\Desktop\STATA\Output\hh_debt_gdp_us.dta saved
 
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. gen year = year(date) // Extract the year from the date
 {txt}
@@ -83,7 +83,7 @@ Sorted by:
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. twoway line debt_gdp_hh year, ///
 >     title("Household Debt to GDP Ratio Over the Years") ///
@@ -93,7 +93,7 @@ Sorted by:
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. summarize debt_gdp_hh
 
@@ -104,7 +104,7 @@ Sorted by:
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. gen yearly_change = debt_gdp_hh[_n] - debt_gdp_hh[_n-1] if year[_n] != year[_n-1]
 {txt}(1 missing value generated)
@@ -120,7 +120,7 @@ yearly_cha~e {c |}{res}         19   -1.009867    2.574247   -5.15239    4.67536
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. list year debt_gdp_hh yearly_change if yearly_change == r(max) // Maximum change
 {txt}
@@ -141,7 +141,7 @@ yearly_cha~e {c |}{res}         19   -1.009867    2.574247   -5.15239    4.67536
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. twoway (bar yearly_change year), ///
 >     title("Yearly Change in Household Debt to GDP Ratio") ///
@@ -149,26 +149,26 @@ yearly_cha~e {c |}{res}         19   -1.009867    2.574247   -5.15239    4.67536
 {res}{txt}
 {com}. 
 . save "$outputs\hh_debt_gdp_us_trend.dta", replace
-{txt}file C:\Users\z99ka\OneDrive\Desktop\STATA\Output\hh_debt_gdp_us_trend.dta saved
+{txt}file C:\Users\sth\OneDrive\Desktop\STATA\Output\hh_debt_gdp_us_trend.dta saved
 
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. use "$outputs\hh_debt_gdp_us.dta",clear 
 {txt}
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. gen quarter = quarter(date)
 {txt}
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. graph box debt_gdp_hh, over(quarter, label(angle(45))) ///
 >     title("Seasonality in Household Debt to GDP Ratio") ytitle("Debt to GDP (%)")
@@ -176,26 +176,26 @@ yearly_cha~e {c |}{res}         19   -1.009867    2.574247   -5.15239    4.67536
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. twoway line debt_gdp_hh date, title("Quarterly Household Debt to GDP Ratio") ///
 >     ytitle("Debt to GDP (%)") xtitle("Date") legend(off)
 {res}{txt}
 {com}. 
 . save "$outputs\hh_debt_gdp_us_seasonality.dta", replace
-{txt}file C:\Users\z99ka\OneDrive\Desktop\STATA\Output\hh_debt_gdp_us_seasonality.dta saved
+{txt}file C:\Users\sth\OneDrive\Desktop\STATA\Output\hh_debt_gdp_us_seasonality.dta saved
 
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. use "$outputs\hh_debt_gdp_us.dta",clear
 {txt}
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. gen year = year(date)
 {txt}
@@ -206,7 +206,7 @@ yearly_cha~e {c |}{res}         19   -1.009867    2.574247   -5.15239    4.67536
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. collapse (mean) debt_gdp_hh, by(crisis_2008)
 {txt}
@@ -222,14 +222,14 @@ yearly_cha~e {c |}{res}         19   -1.009867    2.574247   -5.15239    4.67536
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. use "$outputs\hh_debt_gdp_us.dta",clear
 {txt}
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. gen year = year(date)
 {txt}
@@ -240,7 +240,7 @@ yearly_cha~e {c |}{res}         19   -1.009867    2.574247   -5.15239    4.67536
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. collapse (mean) debt_gdp_hh, by(covid_2020)
 {txt}
@@ -258,14 +258,14 @@ yearly_cha~e {c |}{res}         19   -1.009867    2.574247   -5.15239    4.67536
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. use "$outputs\hh_debt_gdp_us.dta", clear
 {txt}
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. gen quarterly_change = debt_gdp_hh - debt_gdp_hh[_n-1]
 {txt}(1 missing value generated)
@@ -273,7 +273,7 @@ yearly_cha~e {c |}{res}         19   -1.009867    2.574247   -5.15239    4.67536
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. summarize quarterly_change if _n > 1
 
@@ -284,7 +284,7 @@ quarterly_~e {c |}{res}         76   -.2012376    2.111032  -7.034619   3.068969
 {com}. 
 {txt}end of do-file
 
-{com}. do "C:\Users\z99ka\AppData\Local\Temp\STD00000000.tmp"
+{com}. do "C:\Users\sth\AppData\Local\Temp\STD00000000.tmp"
 {txt}
 {com}. list date debt_gdp_hh quarterly_change if quarterly_change == r(max)
 {txt}
@@ -307,9 +307,9 @@ quarterly_~e {c |}{res}         76   -.2012376    2.111032  -7.034619   3.068969
 
 {com}. log close
       {txt}name:  {res}<unnamed>
-       {txt}log:  {res}C:\Users\z99ka\OneDrive\Desktop\STATA\Output\hh_debt_gdp_analysis.smcl
+       {txt}log:  {res}C:\Users\sth\OneDrive\Desktop\STATA\Output\hh_debt_gdp_analysis.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res}26 Jan 2025, 20:19:46
+ {txt}closed on:  {res}26 Mar 2025, 20:19:46
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}
