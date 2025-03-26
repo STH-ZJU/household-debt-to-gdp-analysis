@@ -1,8 +1,8 @@
 
-global inputs "C:\Users\z99ka\OneDrive\Desktop\STATA\Input"
-global outputs "C:\Users\z99ka\OneDrive\Desktop\STATA\Output"
+global inputs "C:\Users\sth\OneDrive\Desktop\STATA\Input"
+global outputs "C:\Users\sth\OneDrive\Desktop\STATA\Output"
 
-import excel "C:\Users\z99ka\OneDrive\Desktop\STATA\Data\hh_debt_gdp_us.xlsx" , sheet ("Quarterly") firstrow
+import excel "C:\Users\sth\OneDrive\Desktop\STATA\Data\hh_debt_gdp_us.xlsx" , sheet ("Quarterly") firstrow
 br
 d 
 codebook date debt_gdp_hh
